@@ -1,0 +1,90 @@
+<template>
+    <page :pageData="pageData"></page>
+</template>
+<script>
+export default {
+    data(){
+        return{
+            pageData:{
+                pocHeaderData:[
+                    {title:'行业设备'},
+                    {title:'行业市场(暂停)'},
+                    {title:'审批中心(孙云涛)'},
+                    {title:'交易中心'},
+                    {title:'经营收益'},
+                    {title:'资源管理'},
+                    {title:'监控中心'}
+                ],
+                sidebarData:[
+                    {
+                        visible:true,
+                        title:'行业设备',
+                        path:'/index',
+                        data:[
+                            {name:'设备模型库',router:'./equipmentModelLibrary'},//设备模型库
+                            {name:'控制器管理',router:'./controllerManagement'},//控制器管理
+                            {name:'模型管理',router:'./modelManagement'},//模型管理
+                            {name:'行业设备库',router:'./industryEquipmentLibrary'},//行业设备库
+                        ]
+                    },
+                    {
+                        visible:true,
+                        title:'行业市场(暂停)',
+                        path:'./businessMarketMenegement',
+                        data:[
+                            {name:'市场管理',router:'./businessMarketMenegement'},
+                            {name:'产品定义',router:'./productDefine'}
+                        ]
+                    },
+                    {
+                        visible:true,
+                        title:'审批中心(孙云涛)',
+                        path:'./certificationApproval',
+                        data:[
+                            {name:'认证审批',router:'./certificationApproval'},
+                            {name:'入驻审批',router:'./settleApproval'},
+                            {name:'入市审批',router:'./marketApproval'},
+                            {name:'应用入市',router:'./appMarket'},
+                            {name:'API入市',router:'./apiMarket'}
+                        ]
+                    },
+                    {
+                        visible:true,
+                        title:'交易中心',
+                        path:'./orderManagement',
+                        data:[
+                            {name:'订单管理',router:'./orderManagement'}
+                        ]
+                    },
+                    {
+                        visible:true,
+                        title:'经营收益',
+                        path:'./operatingIncome',
+                        data:[
+                            {name:'经营收入',router:'./operatingIncome'},
+                            {name:'经营支出',router:'./operatingExpenditure'}
+                        ]
+                    },
+                    {
+                        visible:true,
+                        title:'资源管理',
+                        path:'./exclusiveApp',
+                        data:[
+                            // {name:'服务器资源',router:'./serverResources'},
+                            {name:'专属应用',router:'./exclusiveApp'}
+                        ]
+                    },
+                    {
+                        visible:true,
+                        title:'监控中心',
+                        path:'./resourceMonitoring',
+                        data:[
+                            {name:'资源监控',router:'./resourceMonitoring'}
+                        ]
+                    },
+                ]
+            },
+        }
+    }
+}
+</script>

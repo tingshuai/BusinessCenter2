@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'qw_icon';
+  src:  url('fonts/qw_icon.eot?njobef');
+  src:  url('fonts/qw_icon.eot?njobef#iefix') format('embedded-opentype'),
+    url('fonts/qw_icon.ttf?njobef') format('truetype'),
+    url('fonts/qw_icon.woff?njobef') format('woff'),
+    url('fonts/qw_icon.svg?njobef#qw_icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="qw_icon_"], [class*=" qw_icon_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'qw_icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.qw_icon_lock:before {
+  content: "\e907";
+}
+.qw_icon_lockOpen:before {
+  content: "\e908";
+}
+.qw_icon_skin:before {
+  content: "\e904";
+}
+.qw_icon_noFullScreen:before {
+  content: "\e905";
+}
+.qw_icon_fullScreen:before {
+  content: "\e906";
+}
+.qw_icon_page:before {
+  content: "\e903";
+  color: #707070;
+}
+.qw_icon_menufold:before {
+  content: "\e902";
+}
+.qw_icon_home:before {
+  content: "\e900";
+}
+.qw_icon_menu:before {
+  content: "\e901";
+}
