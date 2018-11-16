@@ -4,7 +4,7 @@
         <control-bar ref="controlBar" @showColorPicker="showColorPicker" :colorPicker="colorPicker" :controlConfig="controlConfig"></control-bar>
     </aside>
     <aside class="container">
-        <tpl-config @pSwitchLayer="pSwitchLayer" @addPitem="addItem" ref="chartCont" :config="chartData"></tpl-config>
+        <tpl-config @moveItem="moveItem" @pSwitchLayer="pSwitchLayer" @addPitem="addItem" ref="chartCont" :config="chartData"></tpl-config>
     </aside>
     <chrome-picker v-show="colorPicker.show" :style="colorPicker.style" id="colorPicker" ref="colorPicker" :value="colorPicker.color" @input="updateValue"></chrome-picker>
 </div>
@@ -69,8 +69,9 @@ export default {
         },
         addItem(e,type,containerPosi){//拖动以添加项目.....
             let _data = JSON.parse( JSON.stringify(_chartData[type]) ) ;
-            _data.style.left = e.clientX - containerPosi.clientLeft + 'px';
-            _data.style.top = e.clientY - containerPosi.clientTop + 'px';
+            _data.style.left = e.clientX - containerPosi.left + 'px';
+            _data.style.top = e.clientY - containerPosi.top + 'px';
+            _data.attrs.id = new Date().getTime();
             this.chartData.listBar.splice(this.chartData.listBar.length,0,_data);
         },
         pSwitchLayer(e,index){
@@ -78,10 +79,18 @@ export default {
             // this.chartData.listBar.splice(index, 1);
             // this.chartData.listBar.push( temp );
         },
-        addPitem(e,type,posi){
-            _chartData[type].style.left = posi.left + 'px';
-            _chartData[type].style.top = posi.top + 'px';
-            this.chartData.listBar.push( _chartData[type] );
+        moveItem(e,containerPosi,_index,targetPosi){//mousemove的event对象, #conttainer的getBoundingClientRect对象, 点击的元素下标， 目标元素的event
+            let _target = this.chartData.listBar[ _index ];
+            let _rect = document.getElementById(_target.attrs.id).getBoundingClientRect();
+            // 移动元素.....
+            let _left = e.clientX - containerPosi.left - targetPosi.offsetX;
+            let _top = e.clientY - containerPosi.top - targetPosi.offsetY;
+            _left < 0 ? _left = 0 : null;
+            _top < 0 ? _top = 0 : null;
+            _left > containerPosi.width - _rect.width ? _left = containerPosi.width - _rect.width : null;
+            _top > containerPosi.height - _rect.height ? _top = containerPosi.height - _rect.height : null;
+            _target.style.left = _left + 'px';
+            _target.style.top = _top + 'px';
         }
     }
 }

@@ -11,8 +11,8 @@ export const de =
             'left':'',
             'top':'',
             "background-color":"#ffffff",
-            "width":'500px',
-            "height":"500px",
+            "width":'420px',
+            "height":"594px",
             "position":"relative",
             "-moz-user-select": "none",
             "-webkit-user-select": "none",
@@ -30,7 +30,6 @@ export const de =
         curIndex:null//点击的当前项目下标....
     },
     listBar:[{
-        id:new Date().getTime(),
         tag:"img",
         value:"",
         style:{
@@ -52,13 +51,51 @@ export const de =
             
         },
         attrs:{
-            src:""
+            src:"",
+            id:new Date().getTime(),
         },
-        class:["_item"]
+        class:["_item"],
+        controlBar:[
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","lt"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","lc"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","lb"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","ct"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","cc"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","cb"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","lt"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","lc"]
+            },
+            {
+                style:{},attribute:{},attrs:{},
+                class:["controlSquare","lb"]
+            }            
+        ]
     }]
 }
 export const font = {
-    id:new Date().getTime(),
     tag:"font",
     value:"",
     style:{
@@ -70,15 +107,54 @@ export const font = {
         'height':"30px"
     },
     attribute:{
-
+        
     },
     attrs:{
-        "disabled":true
+        "disabled":true,
+        "id":new Date().getTime(),
+        
     },
-    class:["_item"]
+    class:["_item"],
+    controlBar:[
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","ct"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        }            
+    ]    
 }
 export const _text = {
-    id:new Date().getTime(),
     tag:"text",
     value:"",
     style:{
@@ -93,12 +169,49 @@ export const _text = {
         
     },
     attrs:{
-        
+        "id":new Date().getTime(),
     },
-    class:["_item"]
+    class:["_item"],
+    controlBar:[
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","ct"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        }            
+    ]    
 }
 export const img = {
-    id:new Date().getTime(),
     tag:"img",
     value:"",
     style:{
@@ -120,12 +233,50 @@ export const img = {
         
     },
     attrs:{
-        src:defaultImg
+        src:defaultImg,
+        id:new Date().getTime(),
     },
-    class:["_item"]
+    class:["_item"],
+    controlBar:[
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","ct"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        }            
+    ]    
 }
 export const rect = {
-    id:new Date().getTime(),
     tag:"rect",
     value:"",
     style:{
@@ -142,12 +293,49 @@ export const rect = {
         
     },
     attrs:{
-        
+        id:new Date().getTime()
     },
-    class:["_item"]
+    class:["_item"],
+    controlBar:[
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","ct"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        }            
+    ]    
 }
 export const table = {
-    id:new Date().getTime(),
     tag:"table",
     value:"",
     style:{
@@ -164,7 +352,67 @@ export const table = {
         
     },
     attrs:{
+        id:new Date().getTime()
+    },
+    class:["_item"],
+    controlBar:[
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","ct"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","cb"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lt"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lc"]
+        },
+        {
+            style:{},attribute:{},attrs:{},
+            class:["controlSquare","lb"]
+        }            
+    ]    
+}
+export const line = {
+    tag:"line",
+    value:"",
+    style:{
+        'border':"2px dashed #ddd",
+        'left':0,
+        'top':0,
+        'cursor':'move',
+        'width':'',
+        'height':'',
+        'display':'inline-block',
+        'position':'absolute',
+        'z-index':'1000'
+    },
+    attribute:{
         
     },
-    class:["_item"]
+    attrs:{
+        id:new Date().getTime()
+    },
+    class:["_line"]
 }

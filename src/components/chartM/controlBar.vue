@@ -181,7 +181,7 @@ export default {
             tplConfig:{//模板配置.....
                 tplSize:3,//模板尺寸
             },
-            actItem:"6",
+            actItem:"1",
             quoteOpacity:{//透明度块....
                 title:"透明度",
                 value:50,

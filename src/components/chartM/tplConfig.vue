@@ -1,9 +1,7 @@
 <template>
-<div class="">
-    <aside class="container">
+    <aside class="tpl">
         <anchored @drop="drop" ref="container" :level="2" :config="config" @itemFocusEvent="itemFocusEvent"></anchored>
     </aside>
-</div>
 </template>
 <script>
 // var $ = require('jquery');
@@ -69,6 +67,15 @@ export default {
                                         self.$emit('input',e.target.value)
                                     }
                                 }
+                        }),item.controlBar.map((it,i,arr)=>{
+                            return createElement('span',{
+                                style: it.style,
+                                class: it.class,
+                                attrs: it.attrs,
+                                on:{
+                                    
+                                }
+                            })
                         })])
                     }else if( item.tag == "img" ){
                         return createElement('div',{
@@ -86,6 +93,73 @@ export default {
                                     that.$emit( "itemFocusEvent", e, index );
                                 }
                             }
+                        },[item.controlBar.map((it,i,arr)=>{
+                            return createElement('span',{
+                                style: it.style,
+                                class: it.class,
+                                attrs: it.attrs,
+                                on:{
+                                    
+                                }
+                            })
+                        })])
+                    }else if( item.tag == "rect" ){
+                        return createElement('div',{
+                            style: item.style,
+                            class: item.class,
+                            attrs:item.attrs,
+                            domProps: {
+                                innerHTML: item.value
+                            },
+                            on:{
+                                mousedown(e){
+                                    that.$emit( "itemFocusEvent", e, index );
+                                },
+                                mouseup(e){
+                                    that.$emit( "itemFocusEvent", e, index );
+                                }
+                            }
+                        },[item.controlBar.map((it,i,arr)=>{
+                            return createElement('span',{
+                                style: it.style,
+                                class: it.class,
+                                attrs: it.attrs,
+                                on:{
+                                    
+                                }
+                            })
+                        })])                        
+                    }else if( item.tag == "table" ){
+                        return createElement('div',{
+                            style: item.style,
+                            class: item.class,
+                            attrs:item.attrs,
+                            domProps: {
+                                innerHTML: item.value
+                            },
+                            on:{
+                                mousedown(e){
+                                    that.$emit( "itemFocusEvent", e, index );
+                                },
+                                mouseup(e){
+                                    that.$emit( "itemFocusEvent", e, index );
+                                }
+                            }
+                        },item.controlBar.map((it,i,arr)=>{
+                            return createElement('span',{
+                                style: it.style,
+                                class: it.class,
+                                attrs: it.attrs,
+                                on:{
+                                    
+                                }
+                            })
+                        }))                        
+                    }else if( item.tag == "line" ){//参考线.....
+                        return createElement('div',{
+                            style: item.style,
+                            class: item.class,
+                            attrs:item.attrs
                         })
                     }
                 }))
@@ -109,10 +183,7 @@ export default {
     },
     data(){
         return {
-            containerPosi:{
-                clientLeft:"",
-                clientTop:""
-            },
+            containerPosi:"",
             target: {
                 offsetX:"",
                 offsetY:""
@@ -124,8 +195,10 @@ export default {
         this.$nextTick(()=>{
             // 获取container 的left和top值
             let box = document.getElementById('container');
-            this.containerPosi.clientLeft = box.getBoundingClientRect().left;
-            this.containerPosi.clientTop = box.getBoundingClientRect().top;
+            this.containerPosi = box.getBoundingClientRect();
+            document.addEventListener('mouseup',(e)=>{
+                this.config.container.curIndex = null;
+            })
         })
     },
     methods:{
@@ -134,19 +207,8 @@ export default {
             if( e.type == 'mousemove' ){
                 // 设置目标元素的位置信息
                 if( this.config.container.curIndex != null ){
-                    let _target = this.config.listBar[ this.config.container.curIndex ];
-                    let _target_w = _target.style.width;
-                    let _target_h = _target.style.height;
-                    let _container_w = this.config.container.style.width;
-                    let _container_h = this.config.container.style.height;
-                    let _left = e.clientX - this.containerPosi.clientLeft - this.target.offsetX;
-                    let _top = e.clientY - this.containerPosi.clientTop - this.target.offsetY;
-                    _target.style.left = _left + 'px';
-                    _target.style.top = _top + 'px';
-                    console.log( _w,_h )
+                    this.$emit( "moveItem",e,this.containerPosi,this.config.container.curIndex,this.target );
                 }
-                // console.log( e.clientX , this.containerPosi.clientLeft , this.target.offsetX , _left)
-                // console.log( e.clientY , this.containerPosi.clientTop , e.offsetY , _top);
             }else if( e.type == 'mousedown' ){
                 // 指示目标元素.......
                 this.config.container.curIndex = index;
@@ -155,10 +217,8 @@ export default {
                 this.target.offsetY = e.offsetY;
             }else if( e.type == 'mouseup' ){
                 // 指示目标元素为空.......
-                this.config.container.curIndex = null;
             }else if( e.type == "mouseleave" ){
                 // 指示目标元素为空.......
-                this.config.container.curIndex = null;
             }else if( e.type == 'drag' ){
 
             }else if( e.type == 'dragstart' ){
@@ -170,9 +230,6 @@ export default {
         drop(e){
             let type = e.dataTransfer.getData("type");
             this.$emit("addPitem",e,type,this.containerPosi);
-            this.$nextTick(()=>{
-               
-            })            
         }
     },
     watch:{
