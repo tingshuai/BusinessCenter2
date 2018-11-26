@@ -48,6 +48,7 @@ export default {
                     }else{
                         that.config.value = this.selItem.value + that.selItem.clientY - e.clientY;
                     }
+                    this.updata(e);
                 }
             })
             document.addEventListener("mouseup",(e)=>{
@@ -68,9 +69,10 @@ export default {
             }else if( this.config.value == this.config.max ){
                 e.deltaY > 0 ? this.config.value-- : this.config.value = this.config.max;
             }
+            this.updata(e);
         },
-        updata(e){
-
+        updata(e,value){
+            this.$emit( "updataStyle", e, this.selItem.type, this.config.value )
         }
     },
     watch:{

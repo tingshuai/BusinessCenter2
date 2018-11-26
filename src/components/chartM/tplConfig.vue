@@ -45,7 +45,7 @@ export default {
                                 ...item.style,
                                 cursor:'move'
                             },
-                            class: item.class,
+                            class: [ ...item.class, item.act == true ? '_act_' : '' ],
                             attrs: item.attrs,
                             on:{
                                 mousedown(e){
@@ -63,8 +63,11 @@ export default {
                                     value:item.value
                                 },
                                 on:{
+                                    mousedown(e){
+                                        e.stopPropagation();
+                                    },
                                     input:function(e){
-                                        self.$emit('input',e.target.value)
+                                        that.$emit('input',e.target.value)
                                     }
                                 }
                         }),item.controlBar.map((it,i,arr)=>{
@@ -80,11 +83,9 @@ export default {
                     }else if( item.tag == "img" ){
                         return createElement('div',{
                             style: item.style,
-                            class: item.class,
+                            class: [ ...item.class, item.act == true ? '_act_' : '' ],
                             attrs:item.attrs,
-                            domProps: {
-                                innerHTML: item.value
-                            },
+                            domProps: {},
                             on:{
                                 mousedown(e){
                                     that.$emit( "itemFocusEvent", e, index );
@@ -93,7 +94,17 @@ export default {
                                     that.$emit( "itemFocusEvent", e, index );
                                 }
                             }
-                        },[item.controlBar.map((it,i,arr)=>{
+                        },[createElement('img',{
+                                style: item.content.style,
+                                class: [],
+                                attrs: item.content.attrs,
+                                domProps:{},
+                                on:{
+                                    input:function(e){
+                                        self.$emit('input',e.target.value)
+                                    }
+                                }
+                        }),item.controlBar.map((it,i,arr)=>{
                             return createElement('span',{
                                 style: it.style,
                                 class: it.class,
@@ -106,10 +117,9 @@ export default {
                     }else if( item.tag == "rect" ){
                         return createElement('div',{
                             style: item.style,
-                            class: item.class,
+                            class: [ ...item.class, item.act == true ? '_act_' : '' ],
                             attrs:item.attrs,
                             domProps: {
-                                innerHTML: item.value
                             },
                             on:{
                                 mousedown(e){
@@ -119,24 +129,17 @@ export default {
                                     that.$emit( "itemFocusEvent", e, index );
                                 }
                             }
-                        },[item.controlBar.map((it,i,arr)=>{
-                            return createElement('span',{
-                                style: it.style,
-                                class: it.class,
-                                attrs: it.attrs,
-                                on:{
-                                    
-                                }
-                            })
-                        })])                        
+                        }, [createElement('div', {
+                                style: item.content.style,
+                                class: [],
+                                attrs: item.content.attrs
+                        })] )
                     }else if( item.tag == "table" ){
                         return createElement('div',{
                             style: item.style,
-                            class: item.class,
+                            class: [ ...item.class, item.act == true ? '_act_' : '' ],
                             attrs:item.attrs,
-                            domProps: {
-                                innerHTML: item.value
-                            },
+                            domProps: {},
                             on:{
                                 mousedown(e){
                                     that.$emit( "itemFocusEvent", e, index );
@@ -197,7 +200,7 @@ export default {
             let box = document.getElementById('container');
             this.containerPosi = box.getBoundingClientRect();
             document.addEventListener('mouseup',(e)=>{
-                this.config.container.curIndex = null;
+                this.$emit('changeIndex',e)
             })
         })
     },
@@ -210,11 +213,10 @@ export default {
                     this.$emit( "moveItem",e,this.containerPosi,this.config.container.curIndex,this.target );
                 }
             }else if( e.type == 'mousedown' ){
-                // 指示目标元素.......
-                this.config.container.curIndex = index;
                 // 记录鼠标距离目标元素的边界距离......
                 this.target.offsetX = e.offsetX;
                 this.target.offsetY = e.offsetY;
+                this.$emit( "pSwitchLayer", e,index )
             }else if( e.type == 'mouseup' ){
                 // 指示目标元素为空.......
             }else if( e.type == "mouseleave" ){

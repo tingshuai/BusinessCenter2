@@ -27,11 +27,38 @@
                         </el-upload>
                     </aside>
                 </div>
-                <div class="item">
-                    <value-quote :config="quoteOpacity"></value-quote>
+            </el-collapse-item>
+            <el-collapse-item title="设置" name="2">
+                <aside class="setBg">
+                    <div class="selBgColor" @click.stop="selColor($event,'itemBgColor')">
+                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
+                        <span>背景填充</span>
+                    </div>
+                    <div class="selBgColor" @click.stop="selColor($event,'itemBorderColor')">
+                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
+                        <span>边框</span>
+                    </div>
+                </aside>
+                <div class="quoteItem">
+                    <value-quote :config="quoteRectFillet" @updataStyle="updataStyle"></value-quote>
+                </div>
+                <div class="quoteItem">
+                    <value-quote :config="quoteRectBorder" @updataStyle="updataStyle"></value-quote>
+                </div>                
+                <div class="quoteItem">
+                    <value-quote :config="quoteImgWidth" @updataStyle="updataStyle"></value-quote>
+                </div>
+                <div class="quoteItem">
+                    <value-quote :config="quoteImgHeight" @updataStyle="updataStyle"></value-quote>
+                </div>
+                <div class="quoteItem">
+                    <value-quote :config="quoteOpacity" @updataStyle="updataStyle"></value-quote>
+                </div>
+                <div class="quoteItem">
+                    <value-quote :config="quoteFont" @updataStyle="updataStyle"></value-quote>
                 </div>                
             </el-collapse-item>
-            <el-collapse-item title="文字配置" name="2">
+            <el-collapse-item title="文字配置" name="3">
                 <section>
                     <span>字体</span>
                     <el-select v-model="sel.font.fontFamily" placeholder="请选择字体">
@@ -56,24 +83,6 @@
                     <value-quote :config="quoteFont"></value-quote>
                 </div>
             </el-collapse-item>
-            <el-collapse-item title="矩形配置" name="3">
-                <aside class="setBg">
-                    <div class="selBgColor" @click.stop="selColor($event,'blockQuote')">
-                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
-                        <span>背景填充</span>
-                    </div>
-                    <div class="selBgColor" @click.stop="selColor($event,'blockQuote')">
-                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
-                        <span>边框</span>
-                    </div>
-                </aside>
-                <div class="quoteItem">
-                    <value-quote :config="quoteRectFillet"></value-quote>
-                </div>
-                <div class="quoteItem">
-                    <value-quote :config="quoteRectBorder"></value-quote>
-                </div>                
-            </el-collapse-item>
             <el-collapse-item title="图片配置" name="4">
                 <section>
                     <span>图片来源</span>
@@ -83,18 +92,6 @@
                     </el-radio-group>
                     <el-input size="mini" v-model="sel.font.value" :placeholder="sel.font.placeholder"></el-input>                    
                 </section>
-                <div class="quoteItem">
-                    <value-quote :config="quoteImgWidth"></value-quote>
-                </div>
-                <div class="quoteItem">
-                    <value-quote :config="quoteImgHeight"></value-quote>
-                </div>
-                <div class="quoteItem">
-                    <value-quote :config="quoteImgFillet"></value-quote>
-                </div>         
-                <div class="quoteItem">
-                    <value-quote :config="quoteImgOpacity"></value-quote>
-                </div>
             </el-collapse-item>
             <el-collapse-item title="表格配置" name="5">
                 
@@ -181,10 +178,10 @@ export default {
             tplConfig:{//模板配置.....
                 tplSize:3,//模板尺寸
             },
-            actItem:"1",
+            actItem:"6",
             quoteOpacity:{//透明度块....
-                title:"透明度",
-                value:50,
+                title:"透明度(%)",
+                value:100,
                 type:"opacity",
                 step:1,
                 max:100,
@@ -196,7 +193,7 @@ export default {
                 type:"fontSize",
                 step:1,
                 max:50,
-                min:0
+                min:12
             },
             quoteRectFillet:{
                 title:"圆角(%)",
@@ -215,37 +212,21 @@ export default {
                 min:0                
             },
             quoteImgWidth:{
-                title:"图片宽度(px)",
+                title:"宽度(px)",
                 value:0,
-                type:"imgWidth",
+                type:"width",
                 step:1,
                 max:1000,
                 min:0                    
             },
             quoteImgHeight:{
-                title:"图片高度(px)",
+                title:"高度(px)",
                 value:0,
-                type:"imgHeight",
+                type:"height",
                 step:1,
                 max:1000,
                 min:0                    
-            },
-            quoteImgFillet:{
-                title:"圆角(%)",
-                value:0,
-                type:"imgFillet",
-                step:1,
-                max:100,
-                min:0
-            },    
-            quoteImgOpacity:{
-                title:"透明度(%)",
-                value:0,
-                type:"quoteImgOpacity",
-                step:1,
-                max:100,
-                min:0
-            },                     
+            }
         }
     },
     mounted(){
@@ -261,11 +242,14 @@ export default {
         uploadChange(e){
             debugger;
         },
-        selColor(e,target){//显示颜色选择器.....
-            this.$emit( "showColorPicker", e , this.colorPicker.color, target );
+        selColor(e,type){//显示颜色选择器.....
+            this.$emit( "showColorPicker", e , this.colorPicker.color, type );
         },
         dragStart(e,type){//开始拖动
             e.dataTransfer.setData( "type",type );
+        },
+        updataStyle(e,_type,_val){
+            this.$emit("updataStyle",e,_type,_val)
         }
     },
     watch:{

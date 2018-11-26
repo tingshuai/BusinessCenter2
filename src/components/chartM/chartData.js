@@ -27,20 +27,21 @@ export const de =
             id:"container"
         },
         class:[],
-        curIndex:null//点击的当前项目下标....
+        curIndex:null,//点击的当前项目下标....
+        actIndex:null,
+        actType:"containerBg"
     },
     listBar:[{
         tag:"img",
         value:"",
         style:{
-            'border':"2px dashed #ddd",
+            'border':"2px dashed rgba(0,0,0,0)",
             'width':'200px',
             'height':'200px',
             'left':0,
             'display':'inline-block',
             'top':0,
             'cursor':'move',
-            'background':`url(${defaultImg}) center center no-repeat`,
             'background-size':'100% 100%',
             'z-index':"auto"
         },
@@ -50,8 +51,27 @@ export const de =
         attribute:{
             
         },
+        act:true,
+        content:{
+            style:{
+                "background-color":"rgba(0,0,0,0)",
+                "border-color":"rgba(0,0,0,0)",
+                "border-width":"1px",
+                "border-style":"solid",
+                "border-radius":"0px",
+                "opacity":1,
+                "font-size":"14px",
+                "width":"100%",
+                "height":"100%",
+                "box-sizing":"border-box"
+            },
+            attrs:{
+                src:`${defaultImg}`,
+                draggable:false
+            }
+        },
         attrs:{
-            src:"",
+            src:``,
             id:new Date().getTime(),
         },
         class:["_item"],
@@ -99,7 +119,7 @@ export const font = {
     tag:"font",
     value:"",
     style:{
-        'border':"2px dashed #ddd",
+        'border':"2px dashed rgba(0,0,0,0)",
         'fontSize':'22px',
         'left':20,
         'top':0,
@@ -109,10 +129,25 @@ export const font = {
     attribute:{
         
     },
+    act:true,
     attrs:{
         "disabled":true,
         "id":new Date().getTime(),
         
+    },
+    content:{
+        style:{
+            "background-color":"rgba(0,0,0,0)",
+            "border-color":"rgba(0,0,0,0)",
+            "border-width":"1px",
+            "border-style":"solid",
+            "border-radius":"0px",
+            "opacity":1,
+            "font-size":"14px",
+            "width":"100%",
+            "height":"100%",
+            "box-sizing":"border-box"
+        },        
     },
     class:["_item"],
     controlBar:[
@@ -158,7 +193,7 @@ export const _text = {
     tag:"text",
     value:"",
     style:{
-        'border':"2px dashed #ddd",
+        'border':"2px dashed rgba(0,0,0,0)",
         'fontSize':'22px',
         'left':100,
         'top':100,
@@ -168,10 +203,25 @@ export const _text = {
     attribute:{
         
     },
+    act:true,
     attrs:{
         "id":new Date().getTime(),
     },
     class:["_item"],
+    content:{
+        style:{
+            "background-color":"rgba(0,0,0,0)",
+            "border-color":"rgba(0,0,0,0)",
+            "border-width":"1px",
+            "border-style":"solid",
+            "border-radius":"0px",
+            "opacity":1,
+            "font-size":"14px",
+            "width":"100%",
+            "height":"100%",
+            "box-sizing":"border-box"
+        }
+    },
     controlBar:[
         {
             style:{},attribute:{},attrs:{},
@@ -215,25 +265,34 @@ export const img = {
     tag:"img",
     value:"",
     style:{
-        'border':"2px dashed #ddd",
+        'border':"2px dashed rgba(0,0,0,0)",
         'width':'100px',
         'height':'100px',
         'left':0,
         'display':'inline-block',
         'top':0,
         'cursor':'move',
-        'background':`url(${defaultImg}) center center no-repeat`,
         'background-size':'100% 100%',
         'z-index':""
     },
     imgStyle:{
         'display':'inline-block',
     },
+    act:true,
     attribute:{
         
     },
+    content:{
+        style:{
+            width:"100%",
+            height:"100%"
+        },
+        attrs:{
+            src:`${defaultImg}`,
+            draggable:false
+        }
+    },    
     attrs:{
-        src:defaultImg,
         id:new Date().getTime(),
     },
     class:["_item"],
@@ -280,7 +339,7 @@ export const rect = {
     tag:"rect",
     value:"",
     style:{
-        'border':"2px dashed #ddd",
+        'border':"2px dashed rgba(0,0,0,0)",
         'fontSize':'22px',
         'left':0,
         'top':0,
@@ -290,10 +349,29 @@ export const rect = {
         'display':'inline-block'
     },
     attribute:{
-        
+    },
+    act:true,
+    contentStyle:{
+        "border":"1px solid #ddd",
+        "height":"100%",
+        "width":"100%"
     },
     attrs:{
         id:new Date().getTime()
+    },
+    content:{
+        style:{
+            "background-color":"rgba(0,0,0,0)",
+            "border-color":"rgba(0,0,0,0)",
+            "border-width":"1px",
+            "border-style":"solid",
+            "border-radius":"0px",
+            "opacity":1,
+            "font-size":"14px",
+            "width":"100%",
+            "height":"100%",
+            "box-sizing":"border-box"
+        }
     },
     class:["_item"],
     controlBar:[
@@ -339,7 +417,7 @@ export const table = {
     tag:"table",
     value:"",
     style:{
-        'border':"2px dashed #ddd",
+        'border':"2px dashed rgba(0,0,0,0)",
         'fontSize':'22px',
         'left':0,
         'top':0,
@@ -351,10 +429,25 @@ export const table = {
     attribute:{
         
     },
+    act:true,
     attrs:{
         id:new Date().getTime()
     },
     class:["_item"],
+    content:{
+        style:{
+            "background-color":"rgba(0,0,0,0)",
+            "border-color":"rgba(0,0,0,0)",
+            "border-width":"1px",
+            "border-style":"solid",
+            "border-radius":"0px",
+            "opacity":1,
+            "font-size":"14px",
+            "width":"100%",
+            "height":"100%",
+            "box-sizing":"border-box"
+        },        
+    },
     controlBar:[
         {
             style:{},attribute:{},attrs:{},
@@ -398,7 +491,7 @@ export const line = {
     tag:"line",
     value:"",
     style:{
-        'border':"2px dashed #ddd",
+        'border':"",
         'left':0,
         'top':0,
         'cursor':'move',
