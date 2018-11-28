@@ -56,9 +56,9 @@ export default {
                                 }
                             }
                         },[createElement('input',{
-                                style: {},
+                                style: item.content.style,
                                 class: [],
-                                attrs: {},
+                                attrs: item.content.attrs,
                                 domProps:{
                                     value:item.value
                                 },
@@ -67,7 +67,12 @@ export default {
                                         e.stopPropagation();
                                     },
                                     input:function(e){
-                                        that.$emit('input',e.target.value)
+                                        item.value = e.target.value;
+                                    },
+                                    keyup(e){
+                                        if( e.keyCode == 13 ){
+                                            debugger;
+                                        }
                                     }
                                 }
                         }),item.controlBar.map((it,i,arr)=>{

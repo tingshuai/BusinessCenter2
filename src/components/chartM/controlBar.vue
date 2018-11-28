@@ -15,7 +15,7 @@
                     <h5>背景设置</h5>
                     <aside class="setBg">
                         <div class="selBgColor" @click.stop="selColor($event,'tplBgColor')">
-                            <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
+                            <span class="colorQuote" :style="{ 'background-color': color.tplBgColor }"></span>
                             <span>选择颜色</span>
                         </div>
                         <el-upload
@@ -31,11 +31,11 @@
             <el-collapse-item title="设置" name="2">
                 <aside class="setBg">
                     <div class="selBgColor" @click.stop="selColor($event,'itemBgColor')">
-                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
+                        <span class="colorQuote" :style="{ 'background-color': color.itemBgColor }"></span>
                         <span>背景填充</span>
                     </div>
                     <div class="selBgColor" @click.stop="selColor($event,'itemBorderColor')">
-                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
+                        <span class="colorQuote" :style="{ 'background-color': color.itemBorderColor }"></span>
                         <span>边框</span>
                     </div>
                 </aside>
@@ -46,10 +46,10 @@
                     <value-quote :config="quoteRectBorder" @updataStyle="updataStyle"></value-quote>
                 </div>                
                 <div class="quoteItem">
-                    <value-quote :config="quoteImgWidth" @updataStyle="updataStyle"></value-quote>
+                    <value-quote :config="quoteWidth" @updataStyle="updataStyle"></value-quote>
                 </div>
                 <div class="quoteItem">
-                    <value-quote :config="quoteImgHeight" @updataStyle="updataStyle"></value-quote>
+                    <value-quote :config="quoteHeight" @updataStyle="updataStyle"></value-quote>
                 </div>
                 <div class="quoteItem">
                     <value-quote :config="quoteOpacity" @updataStyle="updataStyle"></value-quote>
@@ -75,13 +75,10 @@
                 </section>
                 <aside class="setBg">
                     <div class="selBgColor" @click.stop="selColor($event,'fontColor')">
-                        <span class="colorQuote" :style="{ 'background-color': colorPicker.color }"></span>
+                        <span class="colorQuote" :style="{ 'background-color': color.fontColor }"></span>
                         <span>字体颜色</span>
                     </div>
-                </aside>                
-                <div class="quoteItem">
-                    <value-quote :config="quoteFont"></value-quote>
-                </div>
+                </aside>
             </el-collapse-item>
             <el-collapse-item title="图片配置" name="4">
                 <section>
@@ -178,11 +175,18 @@ export default {
             tplConfig:{//模板配置.....
                 tplSize:3,//模板尺寸
             },
+            color:{
+                fontColor:"#fff",
+                tplBgColor:"#fff",
+                itemBgColor:"#fff",
+                itemBorderColor:"#fff",
+                type:""
+            },
             actItem:"6",
             quoteOpacity:{//透明度块....
                 title:"透明度(%)",
                 value:100,
-                type:"opacity",
+                type:"quoteOpacity",
                 step:1,
                 max:100,
                 min:0
@@ -190,7 +194,7 @@ export default {
             quoteFont:{
                 title:"字体大小(px)",
                 value:12,
-                type:"fontSize",
+                type:"quoteFont",
                 step:1,
                 max:50,
                 min:12
@@ -206,32 +210,32 @@ export default {
             quoteRectBorder:{
                 title:"粗细(px)",
                 value:0,
-                type:"thickness",
+                type:"quoteRectBorder",
                 step:1,
                 max:1000,
                 min:0                
             },
-            quoteImgWidth:{
+            quoteWidth:{
                 title:"宽度(px)",
                 value:0,
-                type:"width",
+                type:"quoteWidth",
                 step:1,
                 max:1000,
                 min:0                    
             },
-            quoteImgHeight:{
+            quoteHeight:{
                 title:"高度(px)",
                 value:0,
-                type:"height",
+                type:"quoteHeight",
                 step:1,
                 max:1000,
-                min:0                    
+                min:0
             }
         }
     },
     mounted(){
         this.$nextTick(()=>{
-         
+            console.log( this.controlConfig );
         })
     },
     methods:{
@@ -242,18 +246,39 @@ export default {
         uploadChange(e){
             debugger;
         },
-        selColor(e,type){//显示颜色选择器.....
-            this.$emit( "showColorPicker", e , this.colorPicker.color, type );
+        selColor(e,_type){//显示颜色选择器.....
+            this.$emit( "showColorPicker", e , _type );
+            this.color.type = _type;
         },
         dragStart(e,type){//开始拖动
             e.dataTransfer.setData( "type",type );
         },
         updataStyle(e,_type,_val){
-            this.$emit("updataStyle",e,_type,_val)
+            this[ _type ].value = _val;
+            this.$emit( "updataStyle", e , _type , _val );
+        },
+        exData(_data_){
+            this.quoteRectFillet.value = _data_.itemStyle.content.style['border-radius'].replace(/%/,'');//圆角....
+            this.quoteRectBorder.value = _data_.itemStyle.content.style['border-width'].replace(/px/,'');//边框宽度....
+            this.quoteWidth.value = _data_.itemStyle.style['width'].replace(/px/,'');//边框宽度....
+            this.quoteHeight.value = _data_.itemStyle.style['height'].replace(/px/,'');//边框高度....
+            this.quoteOpacity.value = _data_.itemStyle.content.style['opacity']*100;//透明度....
+            this.quoteFont.value = _data_.itemStyle.content.style['font-size'].replace(/px/,'');//字体大小....
+            this.color.fontColor = _data_.itemStyle.content.style['color'];//字体颜色....
+            this.color.itemBgColor = _data_.itemStyle.content.style['background-color'];//拖动项目背景颜色....
+            this.color.itemBorderColor = _data_.itemStyle.content.style['border-color'];//边框颜色....
         }
     },
     watch:{
-        
+        controlConfig:{
+            handler:function(o,n){
+                this.exData(n)
+            },
+            deep:true
+        },
+        "colorPicker.color":function(o,n){//选择颜色时改变方框的颜色....
+            this.color[ this.color.type ] = n.hex8;
+        }
     }    
 }
 </script>

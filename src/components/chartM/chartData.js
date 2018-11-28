@@ -19,6 +19,7 @@ export const de =
             "-ms-user-select": "none",
             "-khtml-user-select": "none",
             "user-select": "none",
+            "overflow":"hidden"
         },
         attribute:{
 
@@ -29,91 +30,9 @@ export const de =
         class:[],
         curIndex:null,//点击的当前项目下标....
         actIndex:null,
-        actType:"containerBg"
+        actType:"tplBgColor"
     },
-    listBar:[{
-        tag:"img",
-        value:"",
-        style:{
-            'border':"2px dashed rgba(0,0,0,0)",
-            'width':'200px',
-            'height':'200px',
-            'left':0,
-            'display':'inline-block',
-            'top':0,
-            'cursor':'move',
-            'background-size':'100% 100%',
-            'z-index':"auto"
-        },
-        imgStyle:{
-            'display':'inline-block',
-        },
-        attribute:{
-            
-        },
-        act:true,
-        content:{
-            style:{
-                "background-color":"rgba(0,0,0,0)",
-                "border-color":"rgba(0,0,0,0)",
-                "border-width":"1px",
-                "border-style":"solid",
-                "border-radius":"0px",
-                "opacity":1,
-                "font-size":"14px",
-                "width":"100%",
-                "height":"100%",
-                "box-sizing":"border-box"
-            },
-            attrs:{
-                src:`${defaultImg}`,
-                draggable:false
-            }
-        },
-        attrs:{
-            src:``,
-            id:new Date().getTime(),
-        },
-        class:["_item"],
-        controlBar:[
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","lt"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","lc"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","lb"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","ct"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","cc"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","cb"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","lt"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","lc"]
-            },
-            {
-                style:{},attribute:{},attrs:{},
-                class:["controlSquare","lb"]
-            }            
-        ]
-    }]
+    listBar:[]
 }
 export const font = {
     tag:"font",
@@ -124,7 +43,8 @@ export const font = {
         'left':20,
         'top':0,
         'width':"200px",
-        'height':"30px"
+        'height':"30px",
+        'overflow':"hidden"
     },
     attribute:{
         
@@ -141,12 +61,13 @@ export const font = {
             "border-color":"rgba(0,0,0,0)",
             "border-width":"1px",
             "border-style":"solid",
-            "border-radius":"0px",
+            "border-radius":"0%",
             "opacity":1,
             "font-size":"14px",
             "width":"100%",
             "height":"100%",
-            "box-sizing":"border-box"
+            "box-sizing":"border-box",
+            "color":"#000",
         },        
     },
     class:["_item"],
@@ -192,13 +113,15 @@ export const font = {
 export const _text = {
     tag:"text",
     value:"",
+    key:"",
     style:{
         'border':"2px dashed rgba(0,0,0,0)",
         'fontSize':'22px',
         'left':100,
         'top':100,
         'cursor':'move',
-        'display':'inline-block'
+        'display':'inline-block',
+        'overflow':"hidden"
     },
     attribute:{
         
@@ -214,12 +137,16 @@ export const _text = {
             "border-color":"rgba(0,0,0,0)",
             "border-width":"1px",
             "border-style":"solid",
-            "border-radius":"0px",
+            "border-radius":"0%",
             "opacity":1,
             "font-size":"14px",
             "width":"100%",
             "height":"100%",
-            "box-sizing":"border-box"
+            "box-sizing":"border-box",
+            "color":"#000",
+        },
+        attrs:{
+            "title":"属性值为空",
         }
     },
     controlBar:[
@@ -273,7 +200,8 @@ export const img = {
         'top':0,
         'cursor':'move',
         'background-size':'100% 100%',
-        'z-index':""
+        'z-index':"",
+        'overflow':"hidden"
     },
     imgStyle:{
         'display':'inline-block',
@@ -284,8 +212,17 @@ export const img = {
     },
     content:{
         style:{
-            width:"100%",
-            height:"100%"
+            "background-color":"rgba(0,0,0,0)",
+            "border-color":"rgba(0,0,0,0)",
+            "border-width":"1px",
+            "border-style":"solid",
+            "border-radius":"0%",
+            "opacity":1,
+            "font-size":"14px",
+            "width":"100%",
+            "height":"100%",
+            "box-sizing":"border-box",
+            "color":"#000",
         },
         attrs:{
             src:`${defaultImg}`,
@@ -346,7 +283,8 @@ export const rect = {
         'cursor':'move',
         'width':'100px',
         'height':'100px',
-        'display':'inline-block'
+        'display':'inline-block',
+        'overflow':"hidden"
     },
     attribute:{
     },
@@ -365,12 +303,13 @@ export const rect = {
             "border-color":"rgba(0,0,0,0)",
             "border-width":"1px",
             "border-style":"solid",
-            "border-radius":"0px",
+            "border-radius":"0%",
             "opacity":1,
             "font-size":"14px",
             "width":"100%",
             "height":"100%",
-            "box-sizing":"border-box"
+            "box-sizing":"border-box",
+            "color":"#000",
         }
     },
     class:["_item"],
@@ -424,7 +363,8 @@ export const table = {
         'cursor':'move',
         'width':'200px',
         'height':'100px',
-        'display':'inline-block'
+        'display':'inline-block',
+        'overflow':"hidden"
     },
     attribute:{
         
@@ -440,12 +380,13 @@ export const table = {
             "border-color":"rgba(0,0,0,0)",
             "border-width":"1px",
             "border-style":"solid",
-            "border-radius":"0px",
+            "border-radius":"0%",
             "opacity":1,
             "font-size":"14px",
             "width":"100%",
             "height":"100%",
-            "box-sizing":"border-box"
+            "box-sizing":"border-box",
+            "color":"#000",
         },        
     },
     controlBar:[

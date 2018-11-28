@@ -24,9 +24,9 @@ export default {
         return {
             selItem:{
                 value:"",//临时存储this.config.value
-                type:"",
                 clientX:"",
-                clientY:""
+                clientY:"",
+                mousedown:false
             }
         }
     },
@@ -40,39 +40,41 @@ export default {
             // 初始化绑定事件.....
             let that = this;
             document.addEventListener("mousemove",(e)=>{
-                if ( that.selItem.type != "" ) {
-                    if( this.selItem.value + that.selItem.clientY - e.clientY < this.config.min ){
-                        that.config.value = this.config.min;
-                    }else if( this.selItem.value + that.selItem.clientY - e.clientY > this.config.max ){
-                        that.config.value = this.config.max;
+                if ( that.selItem.mousedown ) {
+                    let _tepValue = that.config.value;
+                    if( Number(that.selItem.value) + that.selItem.clientY - e.clientY < that.config.min ){
+                        _tepValue = that.config.min;
+                    }else if( Number(that.selItem.value) + that.selItem.clientY - e.clientY > that.config.max ){
+                        _tepValue = that.config.max;
                     }else{
-                        that.config.value = this.selItem.value + that.selItem.clientY - e.clientY;
+                        _tepValue = Number(that.selItem.value) + that.selItem.clientY - e.clientY;
                     }
-                    this.updata(e);
+                    that.updata(e,_tepValue);
                 }
             })
             document.addEventListener("mouseup",(e)=>{
-                that.selItem.type = "";
+                that.selItem.mousedown = false;
             })
         },
         mousedown(e){
             this.selItem.clientX = e.clientX;
             this.selItem.clientY = e.clientY;
-            this.selItem.type = this.config.type;
             this.selItem.value = this.config.value;
+            this.selItem.mousedown = true;
         },
         onScroll(e){
-            if( this.config.value > this.config.min && this.config.value < this.config.max ){
-                e.deltaY > 0 ? this.config.value-- : this.config.value++;
-            }else if( this.config.value == this.config.min ){
-                e.deltaY > 0 ? this.config.value = this.config.min : this.config.value++;
-            }else if( this.config.value == this.config.max ){
-                e.deltaY > 0 ? this.config.value-- : this.config.value = this.config.max;
+            let _tepValue = this.config.value;
+            if( _tepValue > this.config.min && _tepValue < this.config.max ){
+                e.deltaY > 0 ? _tepValue-- : _tepValue++;
+            }else if( _tepValue == this.config.min ){
+                e.deltaY > 0 ? _tepValue = this.config.min : _tepValue++;
+            }else if( _tepValue == this.config.max ){
+                e.deltaY > 0 ? _tepValue-- : _tepValue = this.config.max;
             }
-            this.updata(e);
+            this.updata(e,_tepValue);
         },
-        updata(e,value){
-            this.$emit( "updataStyle", e, this.selItem.type, this.config.value )
+        updata(e,_tepValue){
+            this.$emit( "updataStyle", e, this.config.type, _tepValue );
         }
     },
     watch:{
