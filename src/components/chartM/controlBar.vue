@@ -116,7 +116,7 @@
                         </svg>
                     </aside>
                 </section>
-            </el-collapse-item>            
+            </el-collapse-item>
         </el-collapse>
     </section>
 </template>
